@@ -16,12 +16,12 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer components {
+  .btn-back {
+    @apply bg-blue text-white-200 font-inter text-sm w-20 h-8 flex justify-center items-center hover:brightness-90;
+  }
+
+  .btn-primary-blue {
+    @apply bg-blue text-white-200 font-inter text-sm w-full h-9 rounded flex justify-center items-center hover:brightness-90;
+  }
 }

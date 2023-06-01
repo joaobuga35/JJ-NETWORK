@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -7,12 +8,26 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      screens: {
+        sm: '375px',
+        md: '768px',
+        lg: '976px',
+        xl: '1024px',
+      },
+      colors: {
+        'black': '#000000',
+        'blue': '#00AEFF' ,
+        'gray': '#EBE9EA',
+        'white': {
+          100:'#ffffff',
+          200: '#f9f9f9'
+        }
+      },
+      fontFamily: {
+        mont: ['Montserrat Alternates', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
       },
     },
   },
   plugins: [],
-}
+};
