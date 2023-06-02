@@ -25,6 +25,7 @@ module.exports = {
           200: "rgba(38, 38, 38, 0.4)",
           300: "rgba(115, 115, 115, 0.5)",
           400: "#868E96",
+          500: "#181818"
         },
 
         white: {
@@ -36,6 +37,10 @@ module.exports = {
       fontFamily: {
         mont: ["Montserrat Alternates", "sans-serif"],
         inter: ["Inter", "sans-serif"],
+      },
+      height: {
+        'form': '38rem',
+        'form-login': '25rem'
       },
     },
   },

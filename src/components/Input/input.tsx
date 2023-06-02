@@ -18,7 +18,7 @@ export default function Input({
 }: iDataInput) {
   return (
     <div className="mb-4 flex flex-col gap-4">
-      <label className="text-white-300 text-sm" htmlFor={id}>{label}</label>
+      <label className="text-white-300 text-xs" htmlFor={id}>{label}</label>
       <input
         className="w-full h-9 p-1 rounded outline-none"
         id={id}
