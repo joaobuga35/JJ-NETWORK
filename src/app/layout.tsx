@@ -1,3 +1,4 @@
+import './styles/forms.css'
 import './styles/globals.css'
 import { Inter } from 'next/font/google'
 
