@@ -1,4 +1,4 @@
-
+"use client";
 import Footer from "@/components/Footer/footer";
 import Link from "next/link";
 import RegisterForm from "@/components/RegisterForm/registerForm";
