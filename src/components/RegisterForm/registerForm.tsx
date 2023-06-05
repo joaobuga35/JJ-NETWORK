@@ -3,8 +3,10 @@ import Input from "../Input/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { clientData, clientSchema } from "@/schemas/client.schema";
 import { useForm } from "react-hook-form";
+import { useAuth } from "@/contexts/authContext";
 
 export default function RegisterForm() {
+  const {register: registerUser} = useAuth()
   const {
     register,
     handleSubmit,
@@ -13,7 +15,8 @@ export default function RegisterForm() {
     resolver: zodResolver(clientSchema),
   });
 
-  const submit = (formData: clientData) => {
+  function submit(formData: clientData){
+    registerUser(formData)
     console.log(formData);
   };
   return (
