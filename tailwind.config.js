@@ -40,7 +40,8 @@ module.exports = {
       },
       height: {
         'form': '38rem',
-        'form-login': '25rem'
+        'form-login': '25rem',
+        'image': '16.688rem'
       },
       borderWidth: {
         DEFAULT: '1px',
@@ -50,6 +51,9 @@ module.exports = {
         '4': '4px',
         '6': '6px',
         '8': '8px',
+      },
+      backgroundImage: {
+        'network': "url('../../assets/image.svg')"
       }
     },
   },
