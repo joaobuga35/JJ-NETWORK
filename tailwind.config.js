@@ -25,7 +25,7 @@ module.exports = {
           200: "rgba(38, 38, 38, 0.4)",
           300: "rgba(115, 115, 115, 0.5)",
           400: "#868E96",
-          500: "#181818"
+          500: "#181818",
         },
 
         white: {
@@ -39,22 +39,25 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
       },
       height: {
-        'form': '38rem',
-        'form-login': '25rem',
-        'image': '16.688rem'
+        form: "38rem",
+        "form-login": "25rem",
+        image: "16.688rem",
       },
       borderWidth: {
-        DEFAULT: '1px',
-        '0': '0',
-        '2': '2px',
-        '3': '3px',
-        '4': '4px',
-        '6': '6px',
-        '8': '8px',
+        DEFAULT: "1px",
+        0: "0",
+        2: "2px",
+        3: "3px",
+        4: "4px",
+        6: "6px",
+        8: "8px",
       },
       backgroundImage: {
-        'network': "url('../../assets/image.svg')"
-      }
+        network: "url('../../assets/image.svg')",
+      },
+      container: {
+        md: "900px",
+      },
     },
   },
   plugins: [],
