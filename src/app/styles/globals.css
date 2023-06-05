@@ -32,4 +32,8 @@
   .btn-info {
     @apply w-[12.5rem] h-[2.188rem] font-inter text-base flex justify-center items-center text-white-100 rounded bg-blue  hover:brightness-90 mt-2;
   }
+
+  .error {
+    @apply text-xs mb-2 text-red-600 font-inter
+  }
 }

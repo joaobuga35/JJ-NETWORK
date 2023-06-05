@@ -8,6 +8,6 @@
   }
 
   .div-form-register {
-    @apply w-80 h-form md:w-96 md:px-8 backdrop-blur border-solid border-0 rounded px-4 py-9 border-gray-300 bg-gray-200;
+    @apply w-80 h-auto md:w-96 md:px-8 backdrop-blur border-solid border-0 rounded px-4 py-9 border-gray-300 bg-gray-200;
   }
 }
