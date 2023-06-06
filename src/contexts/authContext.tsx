@@ -4,7 +4,7 @@ import { clientData, loginData } from "@/schemas/client.schema";
 import api from "@/services/api";
 import { useRouter } from "next/navigation";
 import { ReactNode, createContext, useContext } from "react";
-import { setCookie } from "nookies";
+import { parseCookies, setCookie } from "nookies";
 
 interface Props {
   children: ReactNode;
@@ -37,13 +37,20 @@ export function AuthProvider({ children }: Props) {
   const login = async (loginDatas: loginData) => {
     try {
       const response = await api.post("/auth", loginDatas);
-      Toast({ message: "Login feito com sucesso!", isSucess: true });
-      setTimeout(() => {
-        router.push("/dashboard");
-      }, 2000);
+      setCookie(null, "clientToken", response.data.token, {
+        maxAge: 60 * 30,
+        path: "/",
+      });
+      const cookies = parseCookies();
+      const token: string = String(cookies.clientToken);
+      Toast({ message: "login realizado com sucesso!", isSucess: true });
+      router.push("/dashboard");
     } catch (error) {
-      console.error(error);
-      Toast({ message: "Erro ao logar, verifique email ou senha!" });
+      console.log(error);
+      Toast({
+        message:
+          "Erro ao logar, verifique e o e-mail e a senha estão corretos !",
+      });
     }
   };
   return (

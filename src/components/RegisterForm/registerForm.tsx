@@ -16,7 +16,7 @@ export default function RegisterForm() {
     resolver: zodResolver(clientSchema),
   });
   const { register: registerUser } = useContext(AuthContext);
-  function submit(formData: clientData) {
+  const submit = (formData: clientData) => {
     registerUser(formData);
     console.log(formData);
   }
