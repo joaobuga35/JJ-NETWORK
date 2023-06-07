@@ -44,7 +44,6 @@ export function AuthProvider({ children }: Props) {
       }, 1000);
     } catch (error) {
       setToastError(true);
-      console.error(error);
     }
   };
 
@@ -61,7 +60,6 @@ export function AuthProvider({ children }: Props) {
       }, 1000);
     } catch (error) {
       setToastError(true);
-      console.log(error);
     }
   };
   return (

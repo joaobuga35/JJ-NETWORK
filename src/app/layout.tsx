@@ -3,6 +3,7 @@ import "./styles/card.css";
 import "./styles/forms.css";
 import "./styles/globals.css";
 import { AuthProvider } from "@/contexts/authContext";
+import { DashProvider } from "@/contexts/dashContext";
 
 export default function RootLayout({
   children,
@@ -13,7 +14,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-          {children}
+          <DashProvider>{children}</DashProvider>
         </AuthProvider>
       </body>
     </html>

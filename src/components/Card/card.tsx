@@ -1,20 +1,23 @@
+/* eslint-disable @next/next/no-img-element */
 import { StaticImageData } from "next/image";
 import Image from "next/image";
 import naruto from "../../assets/naruto.png";
 interface ICardProps {
   name: string;
   phone: string;
+  image: any
 }
-export default function Card({ name, phone}: ICardProps) {
+export default function Card({ name, phone, image}: ICardProps) {
+  const imageUrl = image || naruto
   return (
     <li className="card">
       <figure>
-        <Image
+        <img
           className="object-contain hover:object-scale-down w-[6.25rem] h-[6.25rem]"
-          src={naruto}
+          src={imageUrl}
           alt={name}
-          width={100}
-          height={100}
+          width={200}
+          height={200}
         />
       </figure>
 
