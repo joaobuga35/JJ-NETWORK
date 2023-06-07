@@ -3,9 +3,14 @@ import { BsGlobe2 } from "react-icons/bs";
 import { BiExit } from "react-icons/bi";
 import Link from "next/link";
 import { destroyCookie } from "nookies";
+import { useContext } from "react";
+import { AuthContext } from "@/contexts/authContext";
 
 export default function Header() {
-  const removeCookie = () => destroyCookie(null, "clientToken");
+  const { setToast } = useContext(AuthContext);
+  const removeCookie = () => {
+    destroyCookie(null, "clientToken"), setToast(false);
+  };
 
   return (
     <header className="header container-app">

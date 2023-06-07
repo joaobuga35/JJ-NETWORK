@@ -18,8 +18,7 @@ export default function RegisterForm() {
   const { register: registerUser } = useContext(AuthContext);
   const submit = (formData: clientData) => {
     registerUser(formData);
-    console.log(formData);
-  }
+  };
   return (
     <form onSubmit={handleSubmit(submit)}>
       <div className="flex flex-col justify-center items-center gap-5 text-white-200 font-inter mb-5">

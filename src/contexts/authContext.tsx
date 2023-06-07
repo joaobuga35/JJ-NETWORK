@@ -2,7 +2,14 @@
 import { clientData, loginData } from "@/schemas/client.schema";
 import api from "@/services/api";
 import { useRouter } from "next/navigation";
-import { ReactNode, createContext, useContext } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 import { parseCookies, setCookie } from "nookies";
 
 interface Props {
@@ -12,6 +19,12 @@ interface Props {
 interface authProviderData {
   register: (clientDatas: clientData) => void;
   login: (loginDatas: loginData) => void;
+  toast: boolean;
+  setToast: Dispatch<SetStateAction<boolean>>;
+  toastError: boolean;
+  setToastError: Dispatch<SetStateAction<boolean>>;
+  toastRegister: boolean;
+  setToastRegister: Dispatch<SetStateAction<boolean>>;
 }
 
 export const AuthContext = createContext<authProviderData>(
@@ -19,14 +32,19 @@ export const AuthContext = createContext<authProviderData>(
 );
 
 export function AuthProvider({ children }: Props) {
+  const [toast, setToast] = useState(false);
+  const [toastError, setToastError] = useState(false);
+  const [toastRegister, setToastRegister] = useState(false)
   const router = useRouter();
   const register = async (clientDatas: clientData) => {
     try {
       const response = await api.post("/clients", clientDatas);
+      setToastRegister(true)
       setTimeout(() => {
         router.push("/");
-      }, 2000);
+      }, 1000);
     } catch (error) {
+      setToastError(true)
       console.error(error);
     }
   };
@@ -34,17 +52,32 @@ export function AuthProvider({ children }: Props) {
   const login = async (loginDatas: loginData) => {
     try {
       const response = await api.post("/auth", loginDatas);
+      setToast(true);
       setCookie(null, "clientToken", response.data.token, {
         maxAge: 60 * 30,
         path: "/",
       });
-      router.push("/dashboard");
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 1000);
     } catch (error) {
+      setToastError(true);
       console.log(error);
     }
   };
   return (
-    <AuthContext.Provider value={{ register, login }}>
+    <AuthContext.Provider
+      value={{
+        register,
+        login,
+        toast,
+        setToast,
+        toastError,
+        setToastError,
+        toastRegister,
+        setToastRegister
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

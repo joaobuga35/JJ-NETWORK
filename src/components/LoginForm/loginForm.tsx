@@ -14,7 +14,7 @@ export default function LoginForm() {
   } = useForm<loginData>({
     resolver: zodResolver(loginSchema),
   });
-  const { login } = useContext(AuthContext);
+  const { login, setToastRegister } = useContext(AuthContext);
   const submit = (formData: loginData) => {
     login(formData);
   }
@@ -46,7 +46,7 @@ export default function LoginForm() {
         <span className="text-white-200 text-xs">
           Ainda não possui uma conta?
         </span>
-        <Link className="btn-register" href={"/register"}>
+        <Link onClick={() => setToastRegister(false)} className="btn-register" href={"/register"}>
           Cadastre-se
         </Link>
       </div>
