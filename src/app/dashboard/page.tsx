@@ -1,9 +1,39 @@
+"use client"
 import Card from "@/components/Card/card";
 import Footer from "@/components/Footer/footer";
 import Header from "@/components/Header/header";
+import api from "@/services/api";
+import { parseCookies } from "nookies";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
-export default function Dashboard() {
+interface IContacts {
+  id: string;
+  createdAt: string;
+  name: string;
+  email: string;
+  phone: string;
+  image: string | null;
+  clientId: string;
+}
+
+async function getContacts() {
+  const cookies = parseCookies()
+  const token = cookies.clientToken
+  try {
+    const response = await api.get<IContacts[]>("contacts", {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export default async function Dashboard() {
+  const contacts = await getContacts()
+  console.log(contacts)
   return (
     <>
       <Header></Header>
@@ -31,14 +61,7 @@ export default function Dashboard() {
             </button>
           </div>
           <ul className="flex flex-col gap-10 p-10 container-app lg:flex-row lg:flex-wrap">
-            <Card></Card>
-            <Card></Card>
-            <Card></Card>
-            <Card></Card>
-            <Card></Card>
-            <Card></Card>
-            <Card></Card>
-            <Card></Card>
+            {!contacts ? <h1>Você não possui contatos cadastrados!</h1> : contacts.map((contact) => <Card key={contact.id} name={contact.name} phone={contact.phone}></Card>)}
           </ul>
         </section>
       </main>
