@@ -2,12 +2,13 @@
 import Card from "@/components/Card/card";
 import Footer from "@/components/Footer/footer";
 import Header from "@/components/Header/header";
+import WarningDiv from "@/components/WarningDiv/warningDiv";
 import { DashContext } from "@/contexts/dashContext";
 import { useContext } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 export default function Dashboard() {
-  const {contacts} = useContext(DashContext)
+  const { contacts } = useContext(DashContext);
   return (
     <>
       <Header></Header>
@@ -34,20 +35,20 @@ export default function Dashboard() {
               <AiOutlinePlusCircle className="w-10 h-10 text-blue" />
             </button>
           </div>
-          <ul className="flex flex-col gap-10 p-10 container-app lg:flex-row lg:flex-wrap">
-            {!contacts ? (
-                <h1>Você não possui contatos cadastrados!</h1>
-            ) : (
-              contacts.map((contact) => (
+          {contacts.length === 0 ? (
+            <WarningDiv></WarningDiv>
+          ) : (
+            <ul className="flex flex-col gap-10 p-10 container-app lg:flex-row lg:flex-wrap">
+              {contacts.map((contact) => (
                 <Card
                   key={contact.id}
                   name={contact.name}
                   phone={contact.phone}
                   image={contact.image}
                 ></Card>
-              ))
-            )}
-          </ul>
+              ))}
+            </ul>
+          )}
         </section>
       </main>
       <Footer></Footer>
