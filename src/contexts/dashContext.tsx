@@ -21,22 +21,28 @@ interface IContacts {
 interface dashProviderData {
   contacts: IContacts[];
   setContacts: Dispatch<SetStateAction<IContacts[]>>;
+  modal: boolean;
+  setModal: Dispatch<SetStateAction<boolean>>;
+  modalEdit: boolean;
+  setModalEdit: Dispatch<SetStateAction<boolean>>;
 }
 
 export const DashContext = createContext<dashProviderData>(
   {} as dashProviderData
 );
 
-export function DashProvider({ children }: Props){
-    const [contacts, setContacts] = useState<IContacts[]>([]);
+export function DashProvider({ children }: Props) {
+  const [contacts, setContacts] = useState<IContacts[]>([]);
+  const [modal, setModal] = useState(false);
+  const [modalEdit, setModalEdit] = useState(false);
+
+  const cookies = parseCookies();
+  const token = cookies.clientToken;
 
   useEffect(() => {
     async function getContacts() {
-      const cookies = parseCookies();
-      const token = cookies.clientToken;
-
       try {
-        const response = await api.get<IContacts[]>('contacts', {
+        const response = await api.get<IContacts[]>("contacts", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -46,10 +52,21 @@ export function DashProvider({ children }: Props){
         console.error(error);
       }
     }
-    getContacts()
-  },[])
+    getContacts();
+  }, [token]);
 
-    return (
-        <DashContext.Provider value={{contacts, setContacts}}>{children}</DashContext.Provider>
-    )
+  return (
+    <DashContext.Provider
+      value={{
+        contacts,
+        setContacts,
+        modal,
+        setModal,
+        modalEdit,
+        setModalEdit,
+      }}
+    >
+      {children}
+    </DashContext.Provider>
+  );
 }

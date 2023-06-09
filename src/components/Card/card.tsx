@@ -2,13 +2,16 @@
 import { StaticImageData } from "next/image";
 import Image from "next/image";
 import naruto from "../../assets/naruto.png";
+import { useContext } from "react";
+import { DashContext } from "@/contexts/dashContext";
 interface ICardProps {
   name: string;
   phone: string;
-  image: any
+  image: any;
 }
-export default function Card({ name, phone, image}: ICardProps) {
-  const imageUrl = image || naruto
+export default function Card({ name, phone, image }: ICardProps) {
+  const { modalEdit, setModalEdit } = useContext(DashContext);
+  const imageUrl = image || naruto;
   return (
     <li className="card">
       <figure>
@@ -24,7 +27,7 @@ export default function Card({ name, phone, image}: ICardProps) {
       <h2>{name}</h2>
       <span>{phone}</span>
 
-      <button className="btn-info">Mais informações</button>
+      <button onClick={() => setModalEdit(true)} className="btn-info">Mais informações</button>
     </li>
   );
 }
