@@ -19,8 +19,7 @@ interface IContacts {
   clientId: string;
 }
 
-interface IUser extends Omit<IContacts, "image" | "clientId"> {
-}
+interface IUser extends Omit<IContacts, "image" | "clientId"> {}
 
 interface dashProviderData {
   contacts: IContacts[];
@@ -41,12 +40,12 @@ export function DashProvider({ children }: Props) {
   const [contacts, setContacts] = useState<IContacts[]>([]);
   const [modal, setModal] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
-  const [user, setUser] = useState<IUser[]>([]);
+  const [user, setUser] = useState<string>("");
 
   const cookies = parseCookies();
   const token = cookies.clientToken;
 
-  let decoded: any = jwt_decode(token)
+  let decoded: any = jwt_decode(token);
 
   useEffect(() => {
     async function getContacts() {
@@ -68,13 +67,15 @@ export function DashProvider({ children }: Props) {
             Authorization: `Bearer ${token}`,
           },
         });
-        const nameUser = response.data.find((elem) =>{ return elem.email === decoded.email} )
-        setUser(nameUser.name)
+        const nameUser = response.data.find((elem) => {
+          return elem.email === decoded.email;
+        });
+        setUser(nameUser!.name);
       } catch (error) {
         console.error(error);
       }
     }
-    getUser()
+    getUser();
     getContacts();
   }, [token]);
 
@@ -88,7 +89,7 @@ export function DashProvider({ children }: Props) {
         modalEdit,
         setModalEdit,
         user,
-        setUser
+        setUser,
       }}
     >
       {children}
