@@ -33,3 +33,4 @@ export const loginSchema = z.object({
 
 export type loginData = z.infer<typeof loginSchema>;
 export type clientData = z.infer<typeof clientSchema>;
+

@@ -3,6 +3,7 @@ import Card from "@/components/Card/card";
 import Footer from "@/components/Footer/footer";
 import Header from "@/components/Header/header";
 import ModalCreateContact from "@/components/Modals/modal";
+import SectionName from "@/components/SectionName/sectionName";
 import WarningDiv from "@/components/WarningDiv/warningDiv";
 import { DashContext } from "@/contexts/dashContext";
 import { useContext, useState } from "react";
@@ -26,12 +27,7 @@ export default function Dashboard() {
             performance aos clientes.
           </p>
         </section>
-
-        <section className="flex flex-col justify-center items-center border-b border-gray-300 pb-4 mb-6 font-mont">
-          <h2 className="mb-1">Olá, João Lucas!</h2>
-          <p>Seja bem-vindo novamente.</p>
-        </section>
-
+        <SectionName></SectionName>
         <section className="px-5 flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-center gap-8 lg:flex-row container-app">
             <div className="font-mont text-center text-gray-500">

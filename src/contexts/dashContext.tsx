@@ -1,4 +1,5 @@
 "use client";
+import jwt_decode from "jwt-decode";
 import api from "@/services/api";
 import { parseCookies } from "nookies";
 import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
@@ -18,6 +19,9 @@ interface IContacts {
   clientId: string;
 }
 
+interface IUser extends Omit<IContacts, "image" | "clientId"> {
+}
+
 interface dashProviderData {
   contacts: IContacts[];
   setContacts: Dispatch<SetStateAction<IContacts[]>>;
@@ -25,6 +29,8 @@ interface dashProviderData {
   setModal: Dispatch<SetStateAction<boolean>>;
   modalEdit: boolean;
   setModalEdit: Dispatch<SetStateAction<boolean>>;
+  user: string;
+  setUser: Dispatch<SetStateAction<string>>;
 }
 
 export const DashContext = createContext<dashProviderData>(
@@ -35,9 +41,12 @@ export function DashProvider({ children }: Props) {
   const [contacts, setContacts] = useState<IContacts[]>([]);
   const [modal, setModal] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
+  const [user, setUser] = useState<IUser[]>([]);
 
   const cookies = parseCookies();
   const token = cookies.clientToken;
+
+  let decoded: any = jwt_decode(token)
 
   useEffect(() => {
     async function getContacts() {
@@ -52,6 +61,20 @@ export function DashProvider({ children }: Props) {
         console.error(error);
       }
     }
+    async function getUser() {
+      try {
+        const response = await api.get<IUser[]>("clients", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const nameUser = response.data.find((elem) =>{ return elem.email === decoded.email} )
+        setUser(nameUser.name)
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getUser()
     getContacts();
   }, [token]);
 
@@ -64,6 +87,8 @@ export function DashProvider({ children }: Props) {
         setModal,
         modalEdit,
         setModalEdit,
+        user,
+        setUser
       }}
     >
       {children}
