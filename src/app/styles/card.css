@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .card {
+    @apply w-[16.25rem] h-[18.25rem] bg-gray-100 flex flex-col justify-center items-center gap-3.5 font-mont text-black p-6 rounded;
+  }
+}
