@@ -7,14 +7,14 @@ import { contactData, contactSchema } from "@/schemas/contact.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function ModalCreateContact() {
-  const { modal, setModal } = useContext(DashContext);
+  const { modal, setModal, registerContact } = useContext(DashContext);
 
   const { register, handleSubmit } = useForm<contactData>({
     resolver: zodResolver(contactSchema),
   });
 
   const submit = (formData: contactData) => {
-
+    registerContact(formData)
     setModal(false);
   };
   return (

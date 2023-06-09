@@ -5,6 +5,7 @@ import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import jwt_decode from "jwt-decode";
+import { contactData } from "@/schemas/contact.schema";
 
 interface Props {
   children: ReactNode;
@@ -30,6 +31,7 @@ interface dashProviderData {
   modalEdit: boolean;
   setModalEdit: Dispatch<SetStateAction<boolean>>;
   user: string;
+  registerContact: (contactsData: contactData) => void
 }
 
 export const DashContext = createContext<dashProviderData>(
@@ -80,7 +82,19 @@ export function DashProvider({ children }: Props) {
     }
     getUser();
     getContacts();
-  }, [token]);
+  }, [token, modal, modalEdit, router]);
+
+  const registerContact = async (contactsData: contactData) => {
+    try {
+      const response = await api.post("/contacts", contactsData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   return (
     <DashContext.Provider
@@ -92,6 +106,7 @@ export function DashProvider({ children }: Props) {
         modalEdit,
         setModalEdit,
         user,
+        registerContact
       }}
     >
       {children}
