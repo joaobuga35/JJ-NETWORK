@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import Input from "../Input/input";
 import { useForm } from "react-hook-form";
@@ -8,18 +8,14 @@ import { useContext } from "react";
 import { AuthContext } from "@/contexts/authContext";
 
 export default function LoginForm() {
-  const {
-    register,
-    handleSubmit,
-  } = useForm<loginData>({
+  const { register, handleSubmit } = useForm<loginData>({
     resolver: zodResolver(loginSchema),
   });
   const { login, setToastRegister } = useContext(AuthContext);
   const submit = (formData: loginData) => {
     login(formData);
-  }
+  };
   return (
-    
     <form noValidate onSubmit={handleSubmit(submit)}>
       <h2 className="text-center text-white-200 text-xl font-bold">Login</h2>
 
@@ -46,7 +42,11 @@ export default function LoginForm() {
         <span className="text-white-200 text-xs">
           Ainda não possui uma conta?
         </span>
-        <Link onClick={() => setToastRegister(false)} className="btn-register" href={"/register"}>
+        <Link
+          onClick={() => setToastRegister(false)}
+          className="btn-register"
+          href={"/register"}
+        >
           Cadastre-se
         </Link>
       </div>

@@ -3,6 +3,8 @@ import api from "@/services/api";
 import { parseCookies } from "nookies";
 import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import jwt_decode from "jwt-decode";
 
 interface Props {
   children: ReactNode;
@@ -42,10 +44,16 @@ export function DashProvider({ children }: Props) {
 
   const cookies = parseCookies();
   const token = cookies.clientToken;
+  const router = useRouter()
 
-  // let decoded: any = jwt_decode(token);
 
   useEffect(() => {
+    if(!token){
+      router.push("/")
+    }
+    let decoded: any = jwt_decode(token);
+    let idUser: string = decoded.sub
+  
     async function getContacts() {
       try {
         const response = await api.get<IContacts[]>("contacts", {
@@ -53,7 +61,6 @@ export function DashProvider({ children }: Props) {
             Authorization: `Bearer ${token}`,
           },
         });
-        // console.log(decoded)
         setContacts(response.data);
       } catch (error) {
         console.error(error);
@@ -61,16 +68,12 @@ export function DashProvider({ children }: Props) {
     }
     async function getUser() {
       try {
-        const response = await api.get<IUser[]>("clients", {
+        const response = await api.get<IUser>(`clients/${idUser}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
-        // const nameUser = response.data.find((elem) => {
-        //   return elem.email === decoded.email;
-        // });
-        // setUser(nameUser!.name);
+        setUser(response.data.name);
       } catch (error) {
         console.error(error);
       }

@@ -14,7 +14,8 @@ export default function ModalCreateContact() {
   });
 
   const submit = (formData: contactData) => {
-    console.log(formData);
+
+    setModal(false);
   };
   return (
     <div className="modal-wrapper">
@@ -22,6 +23,7 @@ export default function ModalCreateContact() {
         <div className="h-[40px] text-white-200 bg-blue flex justify-between items-center rounded-t px-4 mb-2">
           <h2 className="text-[16px]">Adicionar contato</h2>
           <button
+            type="button"
             onClick={() => {
               setModal(false);
             }}
@@ -37,7 +39,7 @@ export default function ModalCreateContact() {
             placeholder="Digite o nome do contato"
             colorText="text-black"
             register={register("name")}
-          ></Input>
+          />
           <Input
             id="email"
             label="E-mail"
@@ -45,7 +47,7 @@ export default function ModalCreateContact() {
             placeholder="Digite o e-mail do contato"
             colorText="text-black"
             register={register("email")}
-          ></Input>
+          />
           <Input
             id="phone"
             label="Telefone"
@@ -53,7 +55,7 @@ export default function ModalCreateContact() {
             placeholder="(DDD) 00000-0000"
             colorText="text-black"
             register={register("phone")}
-          ></Input>
+          />
           <Input
             id="image"
             label="Imagem(OPCIONAL)"
@@ -61,11 +63,9 @@ export default function ModalCreateContact() {
             placeholder="Imagem do contato"
             colorText="text-black"
             register={register("image")}
-          ></Input>
-
+          />
           <div className="mb-4">
             <button
-              onClick={() => setModal(false)}
               className="btn-save"
               type="submit"
             >
