@@ -20,7 +20,7 @@ export default function LoginForm() {
   }
   return (
     
-    <form onSubmit={handleSubmit(submit)}>
+    <form noValidate onSubmit={handleSubmit(submit)}>
       <h2 className="text-center text-white-200 text-xl font-bold">Login</h2>
 
       <Input

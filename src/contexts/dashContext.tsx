@@ -1,5 +1,4 @@
 "use client";
-import jwt_decode from "jwt-decode";
 import api from "@/services/api";
 import { parseCookies } from "nookies";
 import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
@@ -29,7 +28,6 @@ interface dashProviderData {
   modalEdit: boolean;
   setModalEdit: Dispatch<SetStateAction<boolean>>;
   user: string;
-  setUser: Dispatch<SetStateAction<string>>;
 }
 
 export const DashContext = createContext<dashProviderData>(
@@ -45,7 +43,7 @@ export function DashProvider({ children }: Props) {
   const cookies = parseCookies();
   const token = cookies.clientToken;
 
-  let decoded: any = jwt_decode(token);
+  // let decoded: any = jwt_decode(token);
 
   useEffect(() => {
     async function getContacts() {
@@ -55,6 +53,7 @@ export function DashProvider({ children }: Props) {
             Authorization: `Bearer ${token}`,
           },
         });
+        // console.log(decoded)
         setContacts(response.data);
       } catch (error) {
         console.error(error);
@@ -67,10 +66,11 @@ export function DashProvider({ children }: Props) {
             Authorization: `Bearer ${token}`,
           },
         });
-        const nameUser = response.data.find((elem) => {
-          return elem.email === decoded.email;
-        });
-        setUser(nameUser!.name);
+
+        // const nameUser = response.data.find((elem) => {
+        //   return elem.email === decoded.email;
+        // });
+        // setUser(nameUser!.name);
       } catch (error) {
         console.error(error);
       }
@@ -89,7 +89,6 @@ export function DashProvider({ children }: Props) {
         modalEdit,
         setModalEdit,
         user,
-        setUser,
       }}
     >
       {children}

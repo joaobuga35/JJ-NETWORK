@@ -20,7 +20,7 @@ export default function RegisterForm() {
     registerUser(formData);
   };
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form noValidate onSubmit={handleSubmit(submit)}>
       <div className="flex flex-col justify-center items-center gap-5 text-white-200 font-inter mb-5">
         <h2 className="text-base font-bold">Crie sua conta</h2>
         <span className="text-xs">Rapido e grátis, vamos nessa</span>

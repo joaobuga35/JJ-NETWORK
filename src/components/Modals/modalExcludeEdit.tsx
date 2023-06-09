@@ -1,42 +1,27 @@
-"use client";
 import { useContext } from "react";
 import Input from "../Input/input";
 import { DashContext } from "@/contexts/dashContext";
-import { useForm } from "react-hook-form";
-import { contactData, contactSchema } from "@/schemas/contact.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
 
-export default function ModalCreateContact() {
-  const { modal, setModal } = useContext(DashContext);
+interface Iname {
+  nameModal: string;
+}
 
-  const { register, handleSubmit } = useForm<contactData>({
-    resolver: zodResolver(contactSchema),
-  });
-
-  const submit = (formData: contactData) => {
-    console.log(formData);
-  };
+export default function ModalExcludeEdit() {
+  const { modalEdit, setModalEdit } = useContext(DashContext);
   return (
     <div className="modal-wrapper">
       <div className="modal-container">
         <div className="h-[40px] text-white-200 bg-blue flex justify-between items-center rounded-t px-4 mb-2">
-          <h2 className="text-[16px]">Adicionar contato</h2>
-          <button
-            onClick={() => {
-              setModal(false);
-            }}
-          >
-            X
-          </button>
+          <h2 className="text-[16px]">Mais informações</h2>
+          <button onClick={() => {setModalEdit(false)}}>X</button>
         </div>
-        <form noValidate onSubmit={handleSubmit(submit)} className="px-4">
+        <form className="px-4">
           <Input
             id="name"
             label="Nome"
             type="text"
             placeholder="Digite o nome do contato"
             colorText="text-black"
-            register={register("name")}
           ></Input>
           <Input
             id="email"
@@ -44,7 +29,6 @@ export default function ModalCreateContact() {
             type="email"
             placeholder="Digite o e-mail do contato"
             colorText="text-black"
-            register={register("email")}
           ></Input>
           <Input
             id="phone"
@@ -52,7 +36,6 @@ export default function ModalCreateContact() {
             type="text"
             placeholder="(DDD) 00000-0000"
             colorText="text-black"
-            register={register("phone")}
           ></Input>
           <Input
             id="image"
@@ -60,18 +43,17 @@ export default function ModalCreateContact() {
             type="text"
             placeholder="Imagem do contato"
             colorText="text-black"
-            register={register("image")}
           ></Input>
-
-          <div className="mb-4">
-            <button
-              onClick={() => setModal(false)}
-              className="btn-save"
-              type="submit"
-            >
-              Salvar contato
-            </button>
-          </div>
+            <div className="mb-4 flex justify-between item-center">
+              <button
+                onClick={() => setModalEdit(false)}
+                className="btn-save-edit"
+                type="submit"
+              >
+                Salvar alterações
+              </button>
+              <button className="btn-exclude" onClick={() => setModalEdit(false)}>Excluir contato</button>
+            </div>
         </form>
       </div>
     </div>

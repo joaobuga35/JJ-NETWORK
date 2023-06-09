@@ -3,6 +3,7 @@ import Card from "@/components/Card/card";
 import Footer from "@/components/Footer/footer";
 import Header from "@/components/Header/header";
 import ModalCreateContact from "@/components/Modals/modal";
+import ModalExcludeEdit from "@/components/Modals/modalExcludeEdit";
 import SectionName from "@/components/SectionName/sectionName";
 import WarningDiv from "@/components/WarningDiv/warningDiv";
 import { DashContext } from "@/contexts/dashContext";
@@ -14,8 +15,8 @@ export default function Dashboard() {
 
   return (
     <>
-      {modal ? <ModalCreateContact nameModal="Adicionar contato"></ModalCreateContact> : null}
-      {modalEdit ? <ModalCreateContact nameModal="Mais informações"></ModalCreateContact> : null}
+      {modal ? <ModalCreateContact></ModalCreateContact> : null}
+      {modalEdit ? <ModalExcludeEdit></ModalExcludeEdit> : null}
       <Header></Header>
       <main className=" bg-white-100 mb-14">
         <section className="bg-[url('../../assets/image.svg')] bg-cover bg-no-repeat bg-center lg:bg-fixed h-image pt-[7.875rem] px-5 font-inter text-white-200 mb-[1rem] lg:pt-[6rem] lg:h-80">
