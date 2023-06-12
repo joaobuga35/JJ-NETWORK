@@ -10,6 +10,7 @@ export default function ModalCreateContact() {
   const { modal, setModal, registerContact } = useContext(DashContext);
 
   const { register, handleSubmit } = useForm<contactData>({
+    mode: "onSubmit",
     resolver: zodResolver(contactSchema),
   });
 

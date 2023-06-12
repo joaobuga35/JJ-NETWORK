@@ -5,7 +5,7 @@ import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import jwt_decode from "jwt-decode";
-import { contactData } from "@/schemas/contact.schema";
+import { contactData, contactEdit } from "@/schemas/contact.schema";
 
 interface Props {
   children: ReactNode;
@@ -31,7 +31,11 @@ interface dashProviderData {
   modalEdit: boolean;
   setModalEdit: Dispatch<SetStateAction<boolean>>;
   user: string;
-  registerContact: (contactsData: contactData) => void
+  registerContact: (contactsData: contactData) => void;
+  updateContact: (contactData: contactEdit) => void;
+  filterContacts: IContacts[];
+  setFilterContacts: Dispatch<SetStateAction<IContacts[]>>;
+  deleteContact: () => void
 }
 
 export const DashContext = createContext<dashProviderData>(
@@ -43,19 +47,18 @@ export function DashProvider({ children }: Props) {
   const [modal, setModal] = useState(false);
   const [modalEdit, setModalEdit] = useState(false);
   const [user, setUser] = useState<string>("");
+  const [filterContacts, setFilterContacts] = useState<IContacts[]>([]);
 
   const cookies = parseCookies();
   const token = cookies.clientToken;
-  const router = useRouter()
+  const id = filterContacts.map((elem) => elem.id)
+  const router = useRouter();
 
+  if (!token) {
+    router.push("/");
+  }
 
   useEffect(() => {
-    if(!token){
-      router.push("/")
-    }
-    let decoded: any = jwt_decode(token);
-    let idUser: string = decoded.sub
-  
     async function getContacts() {
       try {
         const response = await api.get<IContacts[]>("contacts", {
@@ -68,9 +71,15 @@ export function DashProvider({ children }: Props) {
         console.error(error);
       }
     }
+    getContacts();
+  }, [token, modal, modalEdit, contacts]);
+
+  useEffect(() => {
     async function getUser() {
       try {
-        const response = await api.get<IUser>(`clients/${idUser}`, {
+        let decoded: any = jwt_decode(token);
+        let idUser: string = decoded.sub;
+        const response = await api.get<IContacts>(`clients/${idUser}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -81,8 +90,7 @@ export function DashProvider({ children }: Props) {
       }
     }
     getUser();
-    getContacts();
-  }, [token, modal, modalEdit, router]);
+  }, [token]);
 
   const registerContact = async (contactsData: contactData) => {
     try {
@@ -92,7 +100,31 @@ export function DashProvider({ children }: Props) {
         },
       });
     } catch (error) {
-      console.error(error)
+      console.error(error);
+    }
+  };
+
+  const updateContact = async (contactsData: contactEdit) => {
+    try {
+      const response = await api.patch(`/contacts/${id}`, contactsData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteContact = async () => {
+    try {
+      const response = await api.delete(`/contacts/${id}`,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -106,7 +138,11 @@ export function DashProvider({ children }: Props) {
         modalEdit,
         setModalEdit,
         user,
-        registerContact
+        registerContact,
+        updateContact,
+        filterContacts,
+        setFilterContacts,
+        deleteContact
       }}
     >
       {children}

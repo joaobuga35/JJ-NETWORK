@@ -5,13 +5,20 @@ import naruto from "../../assets/naruto.png";
 import { useContext } from "react";
 import { DashContext } from "@/contexts/dashContext";
 interface ICardProps {
+  id: string;
   name: string;
   phone: string;
   image: any;
 }
-export default function Card({ name, phone, image }: ICardProps) {
-  const { modalEdit, setModalEdit } = useContext(DashContext);
+export default function Card({ name, phone, image, id }: ICardProps) {
+  const { modalEdit, setModalEdit, contacts, setFilterContacts } =
+    useContext(DashContext);
   const imageUrl = image || naruto;
+
+  const filterAll = (id: string) => {
+    const oneContact = contacts.filter((elem) => elem.id === id);
+    setFilterContacts(oneContact);
+  };
   return (
     <li className="card">
       <figure>
@@ -27,7 +34,16 @@ export default function Card({ name, phone, image }: ICardProps) {
       <h2>{name}</h2>
       <span>{phone}</span>
 
-      <button onClick={() => setModalEdit(true)} className="btn-info">Mais informações</button>
+      <button
+        id={id}
+        onClick={() => {
+          filterAll(id)
+          setModalEdit(true);
+        }}
+        className="btn-info"
+      >
+        Mais informações
+      </button>
     </li>
   );
 }

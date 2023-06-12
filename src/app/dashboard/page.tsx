@@ -7,7 +7,7 @@ import ModalExcludeEdit from "@/components/Modals/modalExcludeEdit";
 import SectionName from "@/components/SectionName/sectionName";
 import WarningDiv from "@/components/WarningDiv/warningDiv";
 import { DashContext } from "@/contexts/dashContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 export default function Dashboard() {
@@ -47,6 +47,7 @@ export default function Dashboard() {
             <ul className="flex flex-col gap-10 p-10 container-app lg:flex-row lg:flex-wrap">
               {contacts.map((contact) => (
                 <Card
+                  id={contact.id}
                   key={contact.id}
                   name={contact.name}
                   phone={contact.phone}
