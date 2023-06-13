@@ -1,12 +1,15 @@
 "use client"
-import Footer from "@/components/Footer/footer";
-import LoginForm from "@/components/LoginForm/loginForm";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
 import { AuthContext } from "@/contexts/authContext";
 import Alert from '@mui/material/Alert';
-import { useContext } from "react";
+import Footer from "@/components/Footer/footer";
+import LoginForm from "@/components/LoginForm/loginForm";
 
 export default function Login() {
   const {toast, setToast, toastError, setToastError} = useContext(AuthContext)
+
+
   return (
     <>
       {toastError ? <Alert severity="error" onClose={() => {setToastError(false)}}>Email ou senha incorretos, tente novamente!</Alert> : null}

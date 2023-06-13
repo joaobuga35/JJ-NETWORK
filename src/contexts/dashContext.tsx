@@ -35,7 +35,7 @@ interface dashProviderData {
   updateContact: (contactData: contactEdit) => void;
   filterContacts: IContacts[];
   setFilterContacts: Dispatch<SetStateAction<IContacts[]>>;
-  deleteContact: () => void
+  deleteContact: () => void,
 }
 
 export const DashContext = createContext<dashProviderData>(
@@ -52,11 +52,7 @@ export function DashProvider({ children }: Props) {
   const cookies = parseCookies();
   const token = cookies.clientToken;
   const id = filterContacts.map((elem) => elem.id)
-  const router = useRouter();
-
-  if (!token) {
-    router.push("/");
-  }
+  
 
   useEffect(() => {
     async function getContacts() {
@@ -90,7 +86,7 @@ export function DashProvider({ children }: Props) {
       }
     }
     getUser();
-  }, [token]);
+  }, [token,user]);
 
   const registerContact = async (contactsData: contactData) => {
     try {

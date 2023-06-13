@@ -9,7 +9,7 @@ import {
   createContext,
   useState,
 } from "react";
-import { setCookie } from "nookies";
+import { parseCookies, setCookie } from "nookies";
 
 interface Props {
   children: ReactNode;
@@ -24,6 +24,8 @@ interface authProviderData {
   setToastError: Dispatch<SetStateAction<boolean>>;
   toastRegister: boolean;
   setToastRegister: Dispatch<SetStateAction<boolean>>;
+  token: string;
+  cookies:any
 }
 
 export const AuthContext = createContext<authProviderData>(
@@ -34,7 +36,11 @@ export function AuthProvider({ children }: Props) {
   const [toast, setToast] = useState(false);
   const [toastError, setToastError] = useState(false);
   const [toastRegister, setToastRegister] = useState(false);
+
+  const cookies = parseCookies();
+  const token = cookies.clientToken;
   const router = useRouter();
+
   const register = async (clientDatas: clientData) => {
     try {
       const response = await api.post("/clients", clientDatas);
@@ -73,6 +79,8 @@ export function AuthProvider({ children }: Props) {
         setToastError,
         toastRegister,
         setToastRegister,
+        token,
+        cookies
       }}
     >
       {children}

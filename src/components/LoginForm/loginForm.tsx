@@ -11,7 +11,7 @@ export default function LoginForm() {
   const { register, handleSubmit } = useForm<loginData>({
     resolver: zodResolver(loginSchema),
   });
-  const { login, setToastRegister } = useContext(AuthContext);
+  const { login, setToastRegister, token } = useContext(AuthContext);
   const submit = (formData: loginData) => {
     login(formData);
   };
