@@ -8,7 +8,7 @@ import Footer from "@/components/Footer/footer";
 import RegisterForm from "@/components/RegisterForm/registerForm";
 
 export default function Register() {
-  const { toastRegister, setToastRegister, toastError, setToastError, token } =
+  const { toastRegister, setToastRegister, toastError, setToastError} =
     useContext(AuthContext);
 
   return (

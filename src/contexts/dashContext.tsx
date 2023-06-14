@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import jwt_decode from "jwt-decode";
 import { contactData, contactEdit } from "@/schemas/contact.schema";
+import Toast from "@/components/Toast/toast";
 
 interface Props {
   children: ReactNode;
@@ -54,39 +55,39 @@ export function DashProvider({ children }: Props) {
   const id = filterContacts.map((elem) => elem.id)
   
 
-  useEffect(() => {
-    async function getContacts() {
-      try {
-        const response = await api.get<IContacts[]>("contacts", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setContacts(response.data);
-      } catch (error) {
-        console.error(error);
-      }
+  async function getContacts() {
+    try {
+      const response = await api.get<IContacts[]>("contacts", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setContacts(response.data);
+    } catch (error) {
+      console.error(error);
     }
-    getContacts();
-  }, [token, modal, modalEdit, contacts]);
+  }
 
-  useEffect(() => {
-    async function getUser() {
-      try {
-        let decoded: any = jwt_decode(token);
-        let idUser: string = decoded.sub;
-        const response = await api.get<IContacts>(`clients/${idUser}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUser(response.data.name);
-      } catch (error) {
-        console.error(error);
-      }
+  async function getUser() {
+    try {
+      let decoded: any = jwt_decode(token);
+      let idUser: string = decoded.sub;
+      const response = await api.get<IContacts>(`clients/${idUser}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUser(response.data.name);
+    } catch (error) {
+      console.error(error);
     }
+  }
+  useEffect(() => {
+    getContacts();
     getUser();
-  }, [token,user]);
+  }, [token, modal, modalEdit, contacts, user]);
+
+
 
   const registerContact = async (contactsData: contactData) => {
     try {
@@ -95,7 +96,9 @@ export function DashProvider({ children }: Props) {
           Authorization: `Bearer ${token}`,
         },
       });
+      Toast({ message: "Contato cadastrado com sucesso!", isSucess: true });
     } catch (error) {
+      Toast({ message: "Contato já existente!", isSucess: false });
       console.error(error);
     }
   };
@@ -107,6 +110,7 @@ export function DashProvider({ children }: Props) {
           Authorization: `Bearer ${token}`,
         },
       });
+      Toast({ message: "Contato editado com sucesso!", isSucess: true });
     } catch (error) {
       console.error(error);
     }

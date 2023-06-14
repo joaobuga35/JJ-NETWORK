@@ -15,8 +15,6 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 export default function Dashboard() {
   const { contacts, modal, setModal, modalEdit } = useContext(DashContext);
-  console.log(contacts)
-  const { token, cookies } = useContext(AuthContext);
 
   return (
     <>
