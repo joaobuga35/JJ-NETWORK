@@ -14,7 +14,7 @@ interface IToastProps {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light"
+          theme: "light",
         })
       : toast.error(message, {
           position: "top-right",

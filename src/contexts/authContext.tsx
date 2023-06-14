@@ -9,7 +9,7 @@ import {
   createContext,
   useState,
 } from "react";
-import { parseCookies, setCookie } from "nookies";
+import { setCookie } from "nookies";
 
 interface Props {
   children: ReactNode;

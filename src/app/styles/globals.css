@@ -38,7 +38,7 @@
   }
 
   .btn-save-edit {
-    @apply  bg-blue text-white-200 font-inter text-sm w-[10rem] h-9 rounded flex justify-center items-center hover:brightness-90;
+    @apply  bg-blue text-white-200 font-inter text-sm w-[8rem] h-9 rounded flex justify-center items-center hover:brightness-90;
   }
 
   .btn-exclude { 

@@ -3,7 +3,6 @@ import api from "@/services/api";
 import { parseCookies } from "nookies";
 import { Dispatch, ReactNode, SetStateAction, createContext } from "react";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import jwt_decode from "jwt-decode";
 import { contactData, contactEdit } from "@/schemas/contact.schema";
 import Toast from "@/components/Toast/toast";
@@ -21,8 +20,6 @@ interface IContacts {
   image: string | null;
   clientId: string;
 }
-
-interface IUser extends Omit<IContacts, "image" | "clientId"> {}
 
 interface dashProviderData {
   contacts: IContacts[];
@@ -123,6 +120,7 @@ export function DashProvider({ children }: Props) {
           Authorization: `Bearer ${token}`,
         },
       });
+      Toast({ message: "Contato deletado!", isSucess: true });
     } catch (error) {
       console.error(error);
     }
