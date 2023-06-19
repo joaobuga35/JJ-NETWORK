@@ -32,7 +32,7 @@ export default function RegisterForm() {
         label={"Nome"}
         register={register("name")}
       ></Input>
-      {errors.name ? <p className="error">{errors.name.message}</p> : null}
+      {errors.name && <p className="error">{errors.name.message}</p>}
       <Input
         id={"email"}
         type={"email"}
@@ -40,7 +40,7 @@ export default function RegisterForm() {
         label={"E-mail"}
         register={register("email")}
       ></Input>
-      {errors.email ? <p className="error">{errors.email.message}</p> : null}
+      {errors.email && <p className="error">{errors.email.message}</p>}
       <Input
         id={"password"}
         type={"password"}
@@ -48,9 +48,9 @@ export default function RegisterForm() {
         label={"Senha"}
         register={register("password")}
       ></Input>
-      {errors.password ? (
+      {errors.password && (
         <p className="error">{errors.password.message}</p>
-      ) : null}
+      )}
       <Input
         id={"confirmPassword"}
         type={"password"}
@@ -58,17 +58,17 @@ export default function RegisterForm() {
         label={"Confirme sua Senha"}
         register={register("confirmPassword")}
       ></Input>
-      {errors.confirmPassword ? (
+      {errors.confirmPassword && (
         <p className="error">{errors.confirmPassword.message}</p>
-      ) : null}
+      )}
       <Input
         id={"phone"}
         type={"text"}
-        placeholder={"Digite seu número (DDD) 00000-0000"}
+        placeholder={"Digite seu número (00) 00000-0000"}
         label={"Telefone"}
         register={register("phone")}
       ></Input>
-      {errors.phone ? <p className="error">{errors.phone.message}</p> : null}
+      {errors.phone && <p className="error">{errors.phone.message}</p>}
       <button className="btn-primary-blue" type="submit">
         Cadastrar
       </button>

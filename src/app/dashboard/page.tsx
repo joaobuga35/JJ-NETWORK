@@ -7,16 +7,16 @@ import ModalExcludeEdit from "@/components/Modals/modalExcludeEdit";
 import SectionName from "@/components/SectionName/sectionName";
 import WarningDiv from "@/components/WarningDiv/warningDiv";
 import { DashContext } from "@/contexts/dashContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 export default function Dashboard() {
-  const { contacts, modal, setModal,modalEdit } = useContext(DashContext);
+  const { contacts, modal, setModal, modalEdit } = useContext(DashContext);
 
   return (
     <>
-      {modal ? <ModalCreateContact></ModalCreateContact> : null}
-      {modalEdit ? <ModalExcludeEdit></ModalExcludeEdit> : null}
+      {modal && <ModalCreateContact />}
+      {modalEdit && <ModalExcludeEdit />}
       <Header></Header>
       <main className=" bg-white-100 mb-14">
         <section className="bg-[url('../../assets/image.svg')] bg-cover bg-no-repeat bg-center lg:bg-fixed h-image pt-[7.875rem] px-5 font-inter text-white-200 mb-[1rem] lg:pt-[6rem] lg:h-80">
@@ -28,7 +28,7 @@ export default function Dashboard() {
             performance aos clientes.
           </p>
         </section>
-        <SectionName></SectionName>
+        <SectionName />
         <section className="px-5 flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-center gap-8 lg:flex-row container-app">
             <div className="font-mont text-center text-gray-500">
@@ -37,16 +37,17 @@ export default function Dashboard() {
                 Visualize todos os seus contatos de maneira fácil e prática.
               </p>
             </div>
-            <button onClick={() => setModal(true)}>
+            <button title="Adicionar contato" onClick={() => setModal(true)}>
               <AiOutlinePlusCircle className="w-10 h-10 text-blue" />
             </button>
           </div>
-          {contacts.length === 0 ? (
+          {contacts?.length === 0 ? (
             <WarningDiv></WarningDiv>
           ) : (
-            <ul className="flex flex-col gap-10 p-10 container-app lg:flex-row lg:flex-wrap">
-              {contacts.map((contact) => (
+            <ul className="flex flex-col justify-center items-center gap-10 p-10 container-app lg:flex-row lg:flex-wrap">
+              {contacts?.map((contact) => (
                 <Card
+                  id={contact.id}
                   key={contact.id}
                   name={contact.name}
                   phone={contact.phone}

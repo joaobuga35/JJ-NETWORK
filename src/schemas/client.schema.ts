@@ -19,6 +19,8 @@ export const clientSchema = z
     phone: z
       .string()
       .nonempty("O número é obrigatório")
+      .min(9, "Mínimo de 9 dígitos")
+      .regex(/^\s*(\d{2}|\d{0})[-. ]?(\d{5}|\d{4})[-. ]?(\d{4})[-. ]?\s*$/,"Formato de celular inválido")
       .max(15, "O número de telefone deve ter no máximo 15 caracteres"),
   })
   .refine(({ password, confirmPassword }) => confirmPassword === password, {
@@ -27,7 +29,7 @@ export const clientSchema = z
   });
 
 export const loginSchema = z.object({
-  email: z.string().email("Deve ser um e-mail válido"),
+  email: z.string().email("O email é obrigatório"),
   password: z.string().nonempty("A senha é obrigatória"),
 });
 

@@ -35,13 +35,14 @@ export function AuthProvider({ children }: Props) {
   const [toastError, setToastError] = useState(false);
   const [toastRegister, setToastRegister] = useState(false);
   const router = useRouter();
+
   const register = async (clientDatas: clientData) => {
     try {
       const response = await api.post("/clients", clientDatas);
       setToastRegister(true);
       setTimeout(() => {
         router.push("/");
-      }, 1000);
+      }, 500);
     } catch (error) {
       setToastError(true);
     }
@@ -57,7 +58,7 @@ export function AuthProvider({ children }: Props) {
       });
       setTimeout(() => {
         router.push("/dashboard");
-      }, 1000);
+      }, 500);
     } catch (error) {
       setToastError(true);
     }
