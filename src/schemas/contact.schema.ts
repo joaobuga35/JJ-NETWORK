@@ -10,6 +10,8 @@ export const contactSchema = z.object({
   phone: z
     .string()
     .nonempty("O número é obrigatório")
+    .min(9, "Mínimo de 9 dígitos")
+    .regex(/^\s*(\d{2}|\d{0})[-. ]?(\d{5}|\d{4})[-. ]?(\d{4})[-. ]?\s*$/,"Formato de celular inválido")
     .max(15, "O número de telefone deve ter no máximo 15 caracteres"),
   image: z.string().optional().nullable(),
 });

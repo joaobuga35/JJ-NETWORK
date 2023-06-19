@@ -9,14 +9,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 export default function ModalCreateContact() {
   const { modal, setModal, registerContact } = useContext(DashContext);
 
-  const { register, handleSubmit } = useForm<contactData>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<contactData>({
     mode: "onSubmit",
     resolver: zodResolver(contactSchema),
   });
 
   const submit = (formData: contactData) => {
-    console.log(formData.image)
-    registerContact(formData)
+    console.log(formData.image);
+    registerContact(formData);
     setModal(false);
   };
   return (
@@ -42,6 +46,7 @@ export default function ModalCreateContact() {
             colorText="text-black"
             register={register("name")}
           />
+          {errors.name && <p className="error">{errors.name.message}</p>}
           <Input
             id="email"
             label="E-mail"
@@ -50,14 +55,16 @@ export default function ModalCreateContact() {
             colorText="text-black"
             register={register("email")}
           />
+          {errors.email && <p className="error">{errors.email.message}</p>}
           <Input
             id="phone"
             label="Telefone"
             type="tel"
-            placeholder="(DDD) 00000-0000"
+            placeholder="(00) 00000-0000"
             colorText="text-black"
             register={register("phone")}
           />
+          {errors.phone && <p className="error">{errors.phone.message}</p>}
           <Input
             id="image"
             label="Imagem(OPCIONAL)"
@@ -67,10 +74,7 @@ export default function ModalCreateContact() {
             register={register("image")}
           />
           <div className="mb-4">
-            <button
-              className="btn-save"
-              type="submit"
-            >
+            <button className="btn-save" type="submit">
               Salvar contato
             </button>
           </div>

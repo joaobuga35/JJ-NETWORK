@@ -64,7 +64,7 @@ export default function RegisterForm() {
       <Input
         id={"phone"}
         type={"text"}
-        placeholder={"Digite seu número (DDD) 00000-0000"}
+        placeholder={"Digite seu número (00) 00000-0000"}
         label={"Telefone"}
         register={register("phone")}
       ></Input>
