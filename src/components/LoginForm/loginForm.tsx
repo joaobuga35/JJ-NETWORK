@@ -8,10 +8,11 @@ import { useContext } from "react";
 import { AuthContext } from "@/contexts/authContext";
 
 export default function LoginForm() {
-  const { register, handleSubmit } = useForm<loginData>({
+  const { register, handleSubmit, formState: { errors } } = useForm<loginData>({
+    mode: "onSubmit",
     resolver: zodResolver(loginSchema),
   });
-  const { login, setToastRegister, token } = useContext(AuthContext);
+  const { login, setToastRegister } = useContext(AuthContext);
   const submit = (formData: loginData) => {
     login(formData);
   };
@@ -26,7 +27,7 @@ export default function LoginForm() {
         label={"E-mail"}
         register={register("email")}
       ></Input>
-
+      {errors.email && <p className="error">{errors.email.message}</p>}
       <Input
         id={"password"}
         type={"password"}
@@ -34,7 +35,7 @@ export default function LoginForm() {
         label={"Senha"}
         register={register("password")}
       ></Input>
-
+      {errors.password && <p className="error">{errors.password.message}</p>}
       <div className="flex flex-col justify-center items-center gap-4">
         <button className="btn-primary-blue" type="submit">
           Entrar

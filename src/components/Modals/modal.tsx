@@ -15,6 +15,7 @@ export default function ModalCreateContact() {
   });
 
   const submit = (formData: contactData) => {
+    console.log(formData.image)
     registerContact(formData)
     setModal(false);
   };
@@ -52,7 +53,7 @@ export default function ModalCreateContact() {
           <Input
             id="phone"
             label="Telefone"
-            type="text"
+            type="tel"
             placeholder="(DDD) 00000-0000"
             colorText="text-black"
             register={register("phone")}

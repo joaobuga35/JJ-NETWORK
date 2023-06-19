@@ -42,7 +42,7 @@ export function AuthProvider({ children }: Props) {
       setToastRegister(true);
       setTimeout(() => {
         router.push("/");
-      }, 1000);
+      }, 500);
     } catch (error) {
       setToastError(true);
     }
@@ -58,7 +58,7 @@ export function AuthProvider({ children }: Props) {
       });
       setTimeout(() => {
         router.push("/dashboard");
-      }, 1000);
+      }, 500);
     } catch (error) {
       setToastError(true);
     }

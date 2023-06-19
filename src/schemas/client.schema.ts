@@ -27,7 +27,7 @@ export const clientSchema = z
   });
 
 export const loginSchema = z.object({
-  email: z.string().email("Deve ser um e-mail válido"),
+  email: z.string().email("O email é obrigatório"),
   password: z.string().nonempty("A senha é obrigatória"),
 });
 
