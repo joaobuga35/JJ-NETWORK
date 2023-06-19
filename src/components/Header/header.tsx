@@ -4,14 +4,14 @@ import { destroyCookie } from "nookies";
 import { AuthContext } from "@/contexts/authContext";
 import { BsGlobe2 } from "react-icons/bs";
 import { BiExit } from "react-icons/bi";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const { setToast } = useContext(AuthContext);
-  const router = useRouter()
+  const router = useRouter();
   const removeCookie = () => {
     destroyCookie(null, "clientToken"), setToast(false);
-    router.refresh()
+    router.refresh();
   };
 
   return (
@@ -20,7 +20,11 @@ export default function Header() {
         jj network
         <BsGlobe2 className="w-5 h-5 text-blue" />
       </h2>
-        <BiExit title="Sair" onClick={() => removeCookie()} className="w-7 h-7 text-blue cursor-pointer" />
+      <BiExit
+        title="Sair"
+        onClick={() => removeCookie()}
+        className="w-7 h-7 text-blue cursor-pointer"
+      />
     </header>
   );
 }
