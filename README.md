@@ -4,9 +4,10 @@
   https://jj-network.vercel.app/
 
 ## INTRODUÇÃO
-  O intuito desta aplicação full-stack é conseguir criar usuários e para que estes possam cadastrar futuros contatos na aplicação.
+  O intuito desta aplicação full-stack é conseguir criar usuários e que estes possam criar uma rede de contatos.
   
 ## COMO UTILIZAR?
-  1- Clone este repositório em sua máquina https://github.com/joaobuga35/API-CLIENTS-CONTACTS
-  2- Siga todas as instruções do README para rodar a API localmente.
-  3- Pronto. O ambiente está preparado e pronto para testar a aplicação.
+1- Cadastre seu usuário. 
+2- Faça Login. 
+3- Navegue pela dashboard e adicione quantos contatos forem necessários. 
+ 
