@@ -37,7 +37,7 @@ export default function Dashboard() {
                 Visualize todos os seus contatos de maneira fácil e prática.
               </p>
             </div>
-            <button onClick={() => setModal(true)}>
+            <button title="Adicionar contato" onClick={() => setModal(true)}>
               <AiOutlinePlusCircle className="w-10 h-10 text-blue" />
             </button>
           </div>

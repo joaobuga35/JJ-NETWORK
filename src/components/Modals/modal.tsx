@@ -19,7 +19,6 @@ export default function ModalCreateContact() {
   });
 
   const submit = (formData: contactData) => {
-    console.log(formData.image);
     registerContact(formData);
     setModal(false);
   };

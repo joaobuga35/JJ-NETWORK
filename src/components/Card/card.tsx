@@ -39,7 +39,7 @@ export default function Card({ name, phone, image, id }: ICardProps) {
         )}
       </figure>
 
-      <h2>{name}</h2>
+      <h2 className="w-full whitespace-nowrap overflow-hidden text-ellipsis">{name}</h2>
       <span>{phone}</span>
 
       <button

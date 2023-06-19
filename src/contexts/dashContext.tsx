@@ -33,7 +33,7 @@ interface dashProviderData {
   updateContact: (contactData: contactEdit) => void;
   filterContacts: IContacts[];
   setFilterContacts: Dispatch<SetStateAction<IContacts[]>>;
-  deleteContact: () => void,
+  deleteContact: () => void;
 }
 
 export const DashContext = createContext<dashProviderData>(
@@ -49,8 +49,7 @@ export function DashProvider({ children }: Props) {
 
   const cookies = parseCookies();
   const token = cookies.clientToken;
-  const id = filterContacts.map((elem) => elem.id)
-  
+  const id = filterContacts.map((elem) => elem.id);
 
   async function getContacts() {
     try {
@@ -60,9 +59,7 @@ export function DashProvider({ children }: Props) {
         },
       });
       setContacts(response.data);
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   }
 
   async function getUser() {
@@ -75,16 +72,12 @@ export function DashProvider({ children }: Props) {
         },
       });
       setUser(response.data.name);
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   }
   useEffect(() => {
     getContacts();
     getUser();
   }, [token, modal, modalEdit, contacts, user]);
-
-
 
   const registerContact = async (contactsData: contactData) => {
     try {
@@ -96,7 +89,6 @@ export function DashProvider({ children }: Props) {
       Toast({ message: "Contato cadastrado com sucesso!", isSucess: true });
     } catch (error) {
       Toast({ message: "Contato já existente!", isSucess: false });
-      console.error(error);
     }
   };
 
@@ -108,23 +100,19 @@ export function DashProvider({ children }: Props) {
         },
       });
       Toast({ message: "Contato editado com sucesso!", isSucess: true });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {}
   };
 
   const deleteContact = async () => {
     try {
-      const response = await api.delete(`/contacts/${id}`,{
+      const response = await api.delete(`/contacts/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       Toast({ message: "Contato deletado!", isSucess: true });
-    } catch (error) {
-      console.error(error);
-    }
-  }
+    } catch (error) {}
+  };
 
   return (
     <DashContext.Provider
@@ -140,7 +128,7 @@ export function DashProvider({ children }: Props) {
         updateContact,
         filterContacts,
         setFilterContacts,
-        deleteContact
+        deleteContact,
       }}
     >
       {children}

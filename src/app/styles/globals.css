@@ -56,4 +56,8 @@
   .modal-container {
     @apply w-[18.438rem] h-auto bg-white-200 rounded md:w-[20.438rem]
   }
+
+  .loading {
+    @apply   w-full h-screen fixed top-0 left-0 z-[.25rem] bg-black bg-opacity-50 flex flex-col items-center justify-center gap-12
+  }
 }
