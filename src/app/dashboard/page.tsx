@@ -44,7 +44,7 @@ export default function Dashboard() {
           {contacts?.length === 0 ? (
             <WarningDiv></WarningDiv>
           ) : (
-            <ul className="flex flex-col gap-10 p-10 container-app lg:flex-row lg:flex-wrap">
+            <ul className="flex flex-col justify-center items-center gap-10 p-10 container-app lg:flex-row lg:flex-wrap">
               {contacts?.map((contact) => (
                 <Card
                   id={contact.id}

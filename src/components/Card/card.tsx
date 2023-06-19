@@ -38,8 +38,15 @@ export default function Card({ name, phone, image, id }: ICardProps) {
           />
         )}
       </figure>
-
-      <h2 className="w-full whitespace-nowrap overflow-hidden text-ellipsis">{name}</h2>
+      {name.length > 25 ? (
+        <h2 className="w-full whitespace-nowrap overflow-hidden text-ellipsis">
+          {name}
+        </h2>
+      ) : (
+        <h2 className="whitespace-nowrap overflow-hidden text-ellipsis">
+          {name}
+        </h2>
+      )}
       <span>{phone}</span>
 
       <button
