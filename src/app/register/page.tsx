@@ -8,16 +8,16 @@ import Footer from "@/components/Footer/footer";
 import RegisterForm from "@/components/RegisterForm/registerForm";
 
 export default function Register() {
-  const { toastRegister, setToastRegister, toastError, setToastError} =
+  const { toastRegister, setToastRegister, toastRegisterError, setToastRegisterError} =
     useContext(AuthContext);
 
   return (
     <>
-      {toastError ? (
+      {toastRegisterError ? (
         <Alert
           severity="error"
           onClose={() => {
-            setToastError(false);
+            setToastRegisterError(false);
           }}
         >
           Email inválido!

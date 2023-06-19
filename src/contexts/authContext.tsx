@@ -24,6 +24,8 @@ interface authProviderData {
   setToastError: Dispatch<SetStateAction<boolean>>;
   toastRegister: boolean;
   setToastRegister: Dispatch<SetStateAction<boolean>>;
+  toastRegisterError: boolean;
+  setToastRegisterError: Dispatch<SetStateAction<boolean>>;
 }
 
 export const AuthContext = createContext<authProviderData>(
@@ -33,6 +35,7 @@ export const AuthContext = createContext<authProviderData>(
 export function AuthProvider({ children }: Props) {
   const [toast, setToast] = useState(false);
   const [toastError, setToastError] = useState(false);
+  const [toastRegisterError, setToastRegisterError] = useState(false);
   const [toastRegister, setToastRegister] = useState(false);
   const router = useRouter();
 
@@ -74,6 +77,8 @@ export function AuthProvider({ children }: Props) {
         setToastError,
         toastRegister,
         setToastRegister,
+        toastRegisterError,
+        setToastRegisterError
       }}
     >
       {children}
